@@ -1,10 +1,9 @@
 package stepdefs;
 
-import cucumber.api.java.en.Then;
 import dtos.request.booking.CreateBookingRequestDto;
 import dtos.response.booking.CreateBookingResponseDto;
+import io.cucumber.java.en.Then;
 import io.restassured.response.Response;
-import services.BookingRequestActions;
 import services.RequestVerifications;
 import utils.LoggerUtils;
 import utils.TestSessionController;
@@ -14,19 +13,24 @@ import java.util.logging.Level;
 
 public class BookingServiceAsserts {
 
-    private CreateBookingResponseDto bookingResponseDto;
-    private BookingRequestActions actions;
     private RequestVerifications verifications;
 
     public BookingServiceAsserts() {
-        actions = new BookingRequestActions();
         verifications = new RequestVerifications();
     }
 
     @Then("Booking endpoint returns status code - (\\d+)$")
-    public void verifyStatusCode(int statusCode) {
+    public void verifyBookingStatusCode(int statusCode) {
         LoggerUtils.LOGGER.log(Level.INFO, "Checking booking service response code");
-        final Response response = TestSessionController.getObjectFromSession(TestSessionVariables.BOOKING_RESPONSE_DTO, Response.class);
+        final Response response = TestSessionController.getObjectFromSession(TestSessionVariables.BOOKING_RESPONSE, Response.class);
+        verifications.verifyBookingStatusCode(response, statusCode);
+    }
+
+    @Then("Booking/id endpoint returns status code - (\\d+)$")
+    public void verifyBookingIdStatusCode(int statusCode) {
+        LoggerUtils.LOGGER.log(Level.INFO, "Checking booking/id service response code");
+        final Integer response = TestSessionController
+                .getObjectFromSession(TestSessionVariables.NEW_BOOKING_REQUEST_STATUS_CODE, Integer.class);
         verifications.verifyBookingStatusCode(response, statusCode);
     }
 
@@ -35,31 +39,26 @@ public class BookingServiceAsserts {
         LoggerUtils.LOGGER.log(Level.INFO, "Checking booking request / response fields");
         final CreateBookingRequestDto bookingRequestDto = TestSessionController
                 .getObjectFromSession(TestSessionVariables.BOOKING_REQUEST_DTO, CreateBookingRequestDto.class);
-        bookingResponseDto = actions.createBooking(bookingRequestDto);
+        final CreateBookingResponseDto bookingResponseDto = TestSessionController
+                .getObjectFromSession(TestSessionVariables.BOOKING_RESPONSE_DTO, CreateBookingResponseDto.class);
         verifications.verifyRequestResponseFields(bookingRequestDto, bookingResponseDto);
-        TestSessionController.storeObjectInSession(TestSessionVariables.BOOKING_RESPONSE_DTO, bookingResponseDto);
+    }
+
+    @Then("Updated booking service request fields are correct$")
+    public void verifyUpdatedBookingFields() {
+        LoggerUtils.LOGGER.log(Level.INFO, "Checking updated booking request / response fields");
+        final CreateBookingRequestDto updatedBookingRequestDto = TestSessionController
+                .getObjectFromSession(TestSessionVariables.UPDATED_BOOKING_REQUEST_DTO, CreateBookingRequestDto.class);
+        final CreateBookingRequestDto updatedBookingResponseDto = TestSessionController
+                .getObjectFromSession(TestSessionVariables.NEW_BOOKING_REQUEST_DTO, CreateBookingRequestDto.class);
+        verifications.verifyRequestsFields(updatedBookingRequestDto, updatedBookingResponseDto);
     }
 
     @Then("Booking service response booking ID field has value$")
     public void bookingIdIsNotNull() {
         LoggerUtils.LOGGER.log(Level.INFO, "Checking if booking id field has value");
-        final CreateBookingRequestDto bookingRequestDto = TestSessionController
-                .getObjectFromSession(TestSessionVariables.BOOKING_REQUEST_DTO, CreateBookingRequestDto.class);
-        bookingResponseDto = actions.createBooking(bookingRequestDto);
-        verifications.checkBookingIdResponse(bookingResponseDto);
-        TestSessionController.storeObjectInSession(TestSessionVariables.BOOKING_RESPONSE_DTO, bookingResponseDto);
+        final CreateBookingResponseDto bookingResponse = TestSessionController
+                .getObjectFromSession(TestSessionVariables.BOOKING_RESPONSE_DTO, CreateBookingResponseDto.class);
+        verifications.checkBookingIdResponse(bookingResponse);
     }
-
-//    @And("response includes the following in any order")
-//    public void response_contains_in_any_order(Map<String, String> responseFields) {
-//        for (Map.Entry<String, String> field : responseFields.entrySet()) {
-//            if (StringUtils.isNumeric(field.getValue())) {
-//                json.body(field.getKey(), containsInAnyOrder(Integer.parseInt(field.getValue())));
-//            } else {
-//                json.body(field.getKey(), containsInAnyOrder(field.getValue()));
-//            }
-//        }
-//    }
 }
-
-

@@ -13,7 +13,7 @@ public class AuthRequestActions {
 
     private final String AUTH_TOKEN_URL = "https://restful-booker.herokuapp.com/auth";
 
-    public AuthToken callBookingService() {
+    public AuthToken createAuthToken() {
         final String authTokenJson = JsonUtils.createJson(new AuthTokenRequestDto());
         final AuthToken token = given()
                 .body(authTokenJson)

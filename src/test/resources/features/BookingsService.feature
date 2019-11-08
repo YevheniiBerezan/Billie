@@ -7,6 +7,9 @@ Feature: Check if booking service gets called
     And Booking service request / response fields are not corrupted
     And Booking service response booking ID field has value
 
-  Scenario: Call booking service with no body and get status 500
-	  Given A POST call with no body sent to booking endpoint
-	  Then Booking endpoint returns status code - 500
+  Scenario: Amend booking with new details
+    Given A POST call with body sent to booking endpoint
+    And Initial booking id is saved
+    When We amend the booking with new details
+    Then Booking/id endpoint returns status code - 200
+    And Updated booking service request fields are correct

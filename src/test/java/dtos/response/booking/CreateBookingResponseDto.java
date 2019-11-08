@@ -2,7 +2,7 @@ package dtos.response.booking;
 
 public class CreateBookingResponseDto {
     private Booking booking;
-    private String bookingid;
+    private int bookingid;
 
     public Booking getBooking() {
         return booking;
@@ -12,11 +12,11 @@ public class CreateBookingResponseDto {
         this.booking = booking;
     }
 
-    public String getBookingId() {
+    public int getBookingId() {
         return bookingid;
     }
 
-    public void setBookingId(final String bookingId) {
+    public void setBookingId(final int bookingId) {
         this.bookingid = bookingId;
     }
 
