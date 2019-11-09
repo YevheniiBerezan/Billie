@@ -7,11 +7,9 @@
 
 ## Table of Contents
 
-> there is actually not enough info for anchors but who cares right?
-
-- [Technologies overview](#technologies)
+- [Technologies overview](#technologies-overview)
 - [Installation](#installation)
-- [Run Test scenarios](#scenarios)
+- [Run Test scenarios](#run-test-scenarios)
 - [Comments](#comments)
 
 
