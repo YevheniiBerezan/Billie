@@ -19,7 +19,7 @@
 - <a href="https://java.com/en/download/faq/whatis_java.xml"/>Java</a> is fast, secure, and reliable. From laptops to datacenters, game consoles to scientific supercomputers, cell phones to the Internet, Java is everywhere! 
 - <a href="http://rest-assured.io/"/>Rest Assured</a> was selected as a communicator between resource and client side of the application. Testing and validating REST services in Java is harder than in dynamic languages such as Ruby and Groovy. REST Assured brings the simplicity of using these languages into the Java domain.
 - There are many building tools on the market, but we decided to go with <a href="https://maven.apache.org/"/>Apache Maven</a> as it is easy to use in a small to medium scale projects, it's proven itself as a reliable and well known project management tool.
-- Test runner - <a href="https://cucumber.io/"/>Cucumber</a>. Cucumber is a tool that supports <a href="https://cucumber.io/docs/bdd/"/>Behaviour-Driven Development(BDD)</a> and in pair with <a href="https://cucumber.io/docs/gherkin/"/>Gerkin</a> syntax provides excellent readability and could provide great supportability if structured properly
+- Features runner - <a href="https://cucumber.io/"/>Cucumber</a>. Cucumber is a tool that supports <a href="https://cucumber.io/docs/bdd/"/>Behaviour-Driven Development(BDD)</a> and in pair with <a href="https://cucumber.io/docs/gherkin/"/>Gerkin</a> syntax provides excellent readability and could provide great supportability if structured properly
 
 
 
