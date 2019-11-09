@@ -39,6 +39,18 @@ public class BookingServiceDefinitions {
         LoggerUtils.LOGGER.log(Level.INFO, "Updating booking with new info");
         actions.updateBooking();
     }
+
+    @When("I call booking service by id")
+    public void callBookingServiceById() {
+        LoggerUtils.LOGGER.log(Level.INFO, "Getting booking details by id");
+        actions.getBookingServiceById();
+    }
+
+    @When("I call delete booking endpoint with existing id")
+    public void deletingBookingById() {
+        LoggerUtils.LOGGER.log(Level.INFO, "Deleting booking by id");
+        actions.deleteBookingById();
+    }
 }
 
 

@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.head;
 
 public class BookingRequestActions {
 
@@ -26,7 +25,7 @@ public class BookingRequestActions {
         new AuthRequestActions().createAuthToken();
     }
 
-    public Response createBooking() {
+    public void createBooking() {
         final CreateBookingRequestDto bookingRequestDto = TestSessionController
                 .getObjectFromSession(TestSessionVariables.BOOKING_REQUEST_DTO, CreateBookingRequestDto.class);
         final String bookingJSON = JsonUtils.createJson(bookingRequestDto);
@@ -38,10 +37,35 @@ public class BookingRequestActions {
                 .storeObjectInSession(TestSessionVariables.BOOKING_RESPONSE, response);
         TestSessionController
                 .storeObjectInSession(TestSessionVariables.BOOKING_RESPONSE_DTO, response.as(CreateBookingResponseDto.class));
-        return response;
     }
 
-    public Response updateBooking() {
+    public void getBookingServiceById() {
+        final int bookingId = TestSessionController.getObjectFromSession(TestSessionVariables.INITIAL_BOOKING_ID, Integer.class);
+
+        final Response response = given()
+                .get(BOOKING_URL + bookingId);
+
+        if (response.statusCode() == 200) {
+            TestSessionController.storeObjectInSession(TestSessionVariables.GET_BOOKING_REQUEST_BY_ID_DTO, response.as(CreateBookingRequestDto.class));
+        }
+        TestSessionController.storeObjectInSession(TestSessionVariables.GET_BOOKING_ID_REQUEST_STATUS_CODE, response.statusCode());
+        TestSessionController.storeObjectInSession(TestSessionVariables.GET_BOOKING_ID_REQUEST_RESPONSE, response);
+    }
+
+    public void deleteBookingById() {
+        final AuthToken authToken = TestSessionController.getObjectFromSession(TestSessionVariables.AUTH_TOKEN_DTO, AuthToken.class);
+        final int bookingId = TestSessionController.getObjectFromSession(TestSessionVariables.INITIAL_BOOKING_ID, Integer.class);
+
+        final Response response = given()
+                .contentType(ContentType.JSON)
+                .header("Cookie", "token=" + authToken.getToken())
+                .when()
+                .delete(BOOKING_URL + bookingId);
+
+        TestSessionController.storeObjectInSession(TestSessionVariables.DELETE_BOOKING_REQUEST_STATUS_CODE, response.statusCode());
+    }
+
+    public void updateBooking() {
         final AuthToken authToken = TestSessionController.getObjectFromSession(TestSessionVariables.AUTH_TOKEN_DTO, AuthToken.class);
 
         final Map<String, String> headers = new HashMap<>();
@@ -61,9 +85,7 @@ public class BookingRequestActions {
                 .when()
                 .put(BOOKING_URL + oldBookingResponseDto.getBookingId());
 
-        TestSessionController.storeObjectInSession(TestSessionVariables.NEW_BOOKING_REQUEST_STATUS_CODE, newBookingRequest.statusCode());
+        TestSessionController.storeObjectInSession(TestSessionVariables.GET_BOOKING_ID_REQUEST_STATUS_CODE, newBookingRequest.statusCode());
         TestSessionController.storeObjectInSession(TestSessionVariables.UPDATED_BOOKING_REQUEST_DTO, newBookingRequest.getBody().as(CreateBookingRequestDto.class));
-
-        return newBookingRequest;
     }
 }

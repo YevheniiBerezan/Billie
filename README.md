@@ -37,7 +37,12 @@ Once `brew` has finished you can check the Maven state by running `mvn -v` comma
 ## Run Test scenarios
 - First of all you need to have the framework on you local machine, so go ahead and clone the project.
 - Using your terminal window navigate to project folder and run `mvn test` command to run all scenarios
-![Recordit GIF](http://g.recordit.co/y4oGUE9tgq.gif)
+![Recordit GIF](http://g.recordit.co/t2dwlGrkBg.gif)
 
 - Or you can run specific scenarios by calling cucumber options like `mvn test -Dcucumber.options=”–tags @Smoke”` 
-![Recordit GIF](http://g.recordit.co/ennX9iqV8s.gif)
+![Recordit GIF](http://g.recordit.co/7LGcFw8HHs.gif)
+
+---
+## Comments
+
+- There are many ways to improve the tests and scenarios, refactor methods to use the cucumber variables, data tables and test examples, a good test reporter and suc and such.   

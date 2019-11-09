@@ -12,7 +12,7 @@ public class BookingDates {
         this.checkin = checkIn;
     }
 
-    public String getCheckout() {
+    public String getCheckOut() {
         return checkout;
     }
 
