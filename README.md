@@ -43,4 +43,4 @@ Once `brew` has finished you can check the Maven state by running `mvn -v` comma
 ---
 ## Comments
 
-- There are many ways to improve the tests and scenarios, refactor methods to use the cucumber variables, data tables and test examples, a good test reporter and such and such.   
+- There are many ways to improve the tests and scenarios, refactor methods to use the cucumber variables, data tables and test examples, a good test reporter and so on.   
